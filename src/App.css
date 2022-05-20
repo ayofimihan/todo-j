@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Josefin Sans', sans-serif;
+  line-height: 1.5rem;
+  margin: 0 auto;
+  padding: 1rem 0.5rem;
+  background-color: #e3e9f0;
+  width: 100%;
+  height: 100vh;
+  max-width: 380px;
+  position: relative;
+}
+header {
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+header h1{
+    text-align: center;
+
+}
+
+/*--------MAKE CHECKBOX ROUNDED----------*/
+
+.checkbox-round {
+  width: 1.5em;
+  height: 1.5em;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: center;
+  border: 1px solid black;
+  appearance: none;
+  -webkit-appearance: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.checkbox-round:checked {
+  background-color: purple;
+}
+ 
+/* ------ INDIVIDUAL TASK STYLING ------ */
+.task {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+/* -----TASK PARAGRAPH----- */
+.taskp {
+  font-size: 1rem;
+  font-weight: 500;
+}
+/* -----COMPLETED TASKS----- */
+.completedp {
+  text-decoration: line-through;
+}
+
+/* ----BUTTON STYLING---- */
+
+.btn{
+  border: 1px solid blanchedalmond;
+  font-size: small;
+}
+.btn :hover{
+
+}
+
+/* -------- text input Form to add task-------- */
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 1rem;
+}
+form input {
+  padding: 0.5rem 1rem;
+  border: 1px solid;
+  border-radius: 0.3rem;
+}
+
+
+
