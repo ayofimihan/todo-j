@@ -3,7 +3,6 @@ import { FaTimes } from "react-icons/fa";
 
 const Task = ({
 	task,
-	onChecked,
 	deleteTask,
 	addToSelected,
 	removeFromSelected,
