@@ -1,27 +1,54 @@
 import './App.css'
 import Tasks from './Tasks'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function App() {
-  const [tasks, setTasks] = useState([
-    { id: 1, text: 'my name is ogunsina champion' },
-    { id: 2, text: 'task 2' },
-    { id: 3, text: 'task 3' },
-    { id: 4, text: 'task 4' },
-    { id: 5, text: 'task 5' },
-  ])
+  const [tasks, setTasks] = useState([])
   const [text, setText] = useState('')
 
-  let newTask = { id: tasks.length + 1, text }
-  const addTask = (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTasks()
+      setTasks(tasksFromServer)
+    }
+    getTasks()
+  }, [])
 
-    setTasks([...tasks, newTask])
-
-    setText('')
+  //fetch tasks
+  const fetchTasks = async () => {
+    const res = await fetch('http://localhost:5000/tasks')
+    const data = await res.json()
+    return data
   }
 
-  const deleteTask = (id) => {
+  // Adding task
+  const addTask = async (task) => {
+    let newTask = { id: tasks.length + 1, text }
+    const res = await fetch('http://localhost:5000/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(task),
+    })
+
+     newTask = await res.json()
+  console.log(newTask);  }
+
+  // let newTask = { id: tasks.length + 1, text }
+  // const addTask = (e) => {
+  //   e.preventDefault()
+
+  //   setTasks([...tasks, newTask])
+
+  //   setText('')
+  // }
+
+  const deleteTask = async (id) => {
+    await fetch(`http://localhost:5000/tasks/${id}`, {
+      method: 'DELETE',
+    })
+
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
@@ -32,7 +59,9 @@ function App() {
     let newTasks = [...tasks] // Clone tasks
     idList.forEach((id) => {
       // Remove task with this id from newTasks
+      deleteTask(id)
       newTasks = newTasks.filter((task) => task.id !== id)
+  
     })
 
     // Tasks is now new tasks
@@ -48,29 +77,42 @@ function App() {
     setTasks(newTaskss)
   }
 
+  //onsubmit
+  // const onSubmit = (e)=>{
+  //   e.preventDefault()
+  //   if (!text){
+  //     alert('please enter a task')
+  //     return
+  //   }
+  // }
+
   return (
     <div>
-      <header>
-        <h1>TODOIST</h1>
-      </header>
-      <form action='' onSubmit={addTask}>
-        <input
-          type='text'
-          placeholder='Create a new Todo...'
-          value={text}
-          onChange={(e) => {
-            setText(e.target.value)
-          }}
-        />
-        <input type='submit' className='btn' />
-      </form>
+      <div className='banner-con'>
+        <div className='banner'>
+          <header className=''>
+            <h1>TODOIST</h1>
+          </header>
+          <form action='' onSubmit={addTask} >
+            <input
+              type='text'
+              placeholder='Create a new Todo...'
+              value={text}
+              onChange={(e) => {
+                setText(e.target.value)
+              }}
+            />
+            <input type='submit' className='btn' />
+          </form>
 
-      <Tasks
-        tasks={tasks}
-        deleteTask={deleteTask}
-        clearSelected={clearSelected}
-        showCompleted={showCompleted}
-      />
+          <Tasks
+            tasks={tasks}
+            deleteTask={deleteTask}
+            clearSelected={clearSelected}
+            showCompleted={showCompleted}
+          />
+        </div>
+      </div>
     </div>
   )
 }

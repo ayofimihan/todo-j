@@ -14,7 +14,7 @@ const Tasks = ({ tasks, onChecked, deleteTask, clearSelected, showCompleted}) =>
 		setSelectedIds(newSelected);
 	};
 
-	const handleClearSelected = () => {
+	const handleClearSelected = (id) => {
 		if (selectedIds.length === 0) return; // Do nothing if no task is selected
 
 		clearSelected(selectedIds);
@@ -25,7 +25,7 @@ const Tasks = ({ tasks, onChecked, deleteTask, clearSelected, showCompleted}) =>
     if (selectedIds.length === 0) return // Do nothing if no task is selected
 
     showCompleted(selectedIds)
-    setSelectedIds([]) // reset selected ids state
+    // setSelectedIds([]) // reset selected ids state
   }
 
  
