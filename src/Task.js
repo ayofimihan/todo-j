@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { FaTimes } from "react-icons/fa";
 
-const Task = ({
-	task,
-	deleteTask,
-	addToSelected,
-	removeFromSelected,
-}) => {
+const Task = ({ task, deleteTask, addToSelected, removeFromSelected }) => {
 	const [selected, setSelected] = useState(false);
 
 	const handleCheck = (id) => {
@@ -28,7 +23,7 @@ const Task = ({
 				className="checkbox-round"
 				onClick={() => handleCheck(task.id)}
 			/>
-			<p className={!selected ? "taskp" : "completedp"}>{task.text}</p>
+			<p className={task.completed ? "completedp" : "taskp"}>{task.text}</p>
 			<FaTimes onClick={() => deleteTask(task.id)} />
 		</div>
 	);
